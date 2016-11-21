@@ -66,7 +66,7 @@ angular.module('cartoview.viewer.editor').directive('collectorConfig',  function
     return {
         transclude: true,
         replace: true,
-        templateUrl: urlsHelper.static + "collector/angular-templates/config-fields.html?" + new Date().getTime(),
+        templateUrl: urlsHelper.static + "cartoview_collector/angular-templates/config-fields.html?" + new Date().getTime(),
         controller: function ($scope, dataService, $tastypieResource, $mdDialog) {
             $scope.attributes = new $tastypieResource("geonodelayerattribute");
             $scope.instanceObj = dataService.instanceObj;
@@ -136,7 +136,7 @@ angular.module('cartoview.viewer.editor').directive('collectorConfig',  function
             $scope.showAttributeSettings = function (ev, attribute) {
                 $mdDialog.show({
                     controller: CSAttributeDialogController,
-                    templateUrl: urlsHelper.static + 'collector/angular-templates/attribute-settings-dialog.html?' + new Date().getTime(),
+                    templateUrl: urlsHelper.static + 'cartoview_collector/angular-templates/attribute-settings-dialog.html?' + new Date().getTime(),
                     parent: angular.element(document.body),
                     targetEvent: ev,
                     clickOutsideToClose:true,

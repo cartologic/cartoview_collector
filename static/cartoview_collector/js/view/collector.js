@@ -5,7 +5,7 @@ angular.module('cartoview.collectorApp').directive('collectorAddItemForm',  func
     return {
         restrict: 'E',
         replace: true,
-        templateUrl: urlsHelper.static + "collector/angular-templates/add-item-form.html",
+        templateUrl: urlsHelper.static + "cartoview_collector/angular-templates/add-item-form.html",
         controller: function ($scope, collectorService) {
             $scope.collectorService = collectorService;
         }
@@ -26,7 +26,7 @@ function(urlsHelper, mapService, appConfig, featureListService, $rootScope, $htt
             anchorXUnits: 'fraction',
             anchorYUnits: 'pixels',
             color: "#00B7F1",
-            src: urlsHelper.static + 'collector/marker.png'
+            src: urlsHelper.static + 'cartoview_collector/marker.png'
         })),
         text: new ol.style.Text({
             text:'+',
@@ -48,7 +48,7 @@ function(urlsHelper, mapService, appConfig, featureListService, $rootScope, $htt
             anchorXUnits: 'fraction',
             anchorYUnits: 'pixels',
             color: "#FF4B00",
-            src: urlsHelper.static + 'collector/marker.png'
+            src: urlsHelper.static + 'cartoview_collector/marker.png'
         }))
     });
     var selectedFeatureStyle = new ol.style.Style({
@@ -57,7 +57,7 @@ function(urlsHelper, mapService, appConfig, featureListService, $rootScope, $htt
             anchorXUnits: 'fraction',
             anchorYUnits: 'pixels',
             color: "#00B7F1",
-            src: urlsHelper.static + 'collector/marker.png'
+            src: urlsHelper.static + 'cartoview_collector/marker.png'
         }))
     });
     var featureDetailsTpl = ["<table>"];

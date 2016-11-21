@@ -1,9 +1,9 @@
 import json
 from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirect
 from . import APP_NAME
-from viewer import views as viewer_views
+from cartoview_map_viewer import views as viewer_views
 from .viewer_widgets import widgets
-from feature_list.viewer_widgets import widgets as feature_list_widgets
+from cartoview_feature_list.viewer_widgets import widgets as feature_list_widgets
 from django.contrib.auth.decorators import login_required
 
 
