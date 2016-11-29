@@ -27,6 +27,7 @@
         {% for js_url in w.view.js %}<script type="text/javascript" src="{{ js_url }}"></script>{% endfor %}
     {% endfor %}
 {% endblock %}
+{% block header_toolbar %}{% endblock %}
 {% block body_directives %}ng-app="cartoview.collectorApp" ng-controller="cartoview.collectorApp.MainController"{% endblock %}
 {% block body %}
     <div class="full-height" layout-align="space-around stretch" layout="row" layout-sm="column" layout-xs="column">
