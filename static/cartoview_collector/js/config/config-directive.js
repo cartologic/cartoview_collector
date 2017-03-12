@@ -1,32 +1,32 @@
 /**
  * Created by kamal on 6/29/16.
  */
-angular.module('cartoview.viewer.editor').directive('collectorConfig',  function(urlsHelper) {
+angular.module('cartoview.viewer.editor').directive('collectorConfig', function (urlsHelper) {
     var fieldTypes = [{
         label: "Text",
         name: "text",
         allowedDataTypes: ["string"]
-    },{
+    }, {
         label: "Multi-line Text",
         name: "textarea",
         allowedDataTypes: ["string"]
-    },{
+    }, {
         label: "Number",
         name: "number",
         allowedDataTypes: ["number"]
-    },{
+    }, {
         label: "Checkbox",
         name: "chekbox",
         allowedDataTypes: ["number", "boolean"]
-    },{
+    }, {
         label: "Drop Down List",
         name: "select",
         allowedDataTypes: ["string", "number"]
-    },{
+    }, {
         label: "Checkbox List",
         name: "checkboxList",
         allowedDataTypes: ["string"]
-    },{
+    }, {
         label: "Radio Button List",
         name: "radioList",
         allowedDataTypes: ["string", "number"]
@@ -37,8 +37,8 @@ angular.module('cartoview.viewer.editor').directive('collectorConfig',  function
     }];
     var initialTypeMapping = {
         string: "text",
-        double:"number",
-        int:"number" ,
+        double: "number",
+        int: "number",
         long: "number",
         boolean: "checkbox",
         datetime: "datetime"
@@ -47,13 +47,14 @@ angular.module('cartoview.viewer.editor').directive('collectorConfig',  function
     function getDataType(attribute) {
         return attribute.attribute_type.split(":").pop().toLowerCase();
     }
+
     function CSAttributeDialogController($scope, $mdDialog, attribute) {
         $scope.fieldTypes = fieldTypes
         $scope.attribute = attribute;
-        $scope.hide = function() {
+        $scope.hide = function () {
             $mdDialog.hide();
         };
-        $scope.cancel = function() {
+        $scope.cancel = function () {
             $mdDialog.cancel();
         };
         $scope.isMultibleChoice = function (t) {
@@ -63,6 +64,7 @@ angular.module('cartoview.viewer.editor').directive('collectorConfig',  function
             attribute.options.slice(index, index + 1)
         }
     }
+
     return {
         transclude: true,
         replace: true,
@@ -72,10 +74,10 @@ angular.module('cartoview.viewer.editor').directive('collectorConfig',  function
             $scope.instanceObj = dataService.instanceObj;
             $scope.config = $scope.instanceObj.config.collector = $scope.instanceObj.config.collector || {};
             $scope.config.attachments = $scope.config.attachments || {
-                enabled:false,
-                label:"Attachments",
-                multiple:false
-            };
+                    enabled: false,
+                    label: "Attachments",
+                    multiple: false
+                };
             delete $scope.instanceObj.config.featureList;
 
             $scope.mapLayers = [];
@@ -84,18 +86,21 @@ angular.module('cartoview.viewer.editor').directive('collectorConfig',  function
             var initialized = false;
             var populateLayers = function () {
                 $scope.mapLayers = [];
-                angular.forEach(dataService.selected.map.map_layers, function (layer) {
-                    if (!layer.fixed) {
-                        layer.params = JSON.parse(layer.layer_params);
-                        layersDict[layer.name] = layer;
-                        var layerInfo = {
-                            name: layer.name,
-                            title: layer.params.title
-                        };
-                        $scope.mapLayers.push(layerInfo);
-                    }
-                });
-                if($scope.config.layer && !$scope.config.attributes){
+                if (dataService.selected.map) {
+                    angular.forEach(dataService.selected.map.map_layers, function (layer) {
+                        if (!layer.fixed) {
+                            layer.params = JSON.parse(layer.layer_params);
+                            layersDict[layer.name] = layer;
+                            var layerInfo = {
+                                name: layer.name,
+                                title: layer.params.title
+                            };
+                            $scope.mapLayers.push(layerInfo);
+                        }
+                    });
+                }
+
+                if ($scope.config.layer && !$scope.config.attributes) {
                     initAttributes()
                 }
             };
@@ -139,14 +144,14 @@ angular.module('cartoview.viewer.editor').directive('collectorConfig',  function
                     templateUrl: urlsHelper.static + 'cartoview_collector/angular-templates/attribute-settings-dialog.html?' + new Date().getTime(),
                     parent: angular.element(document.body),
                     targetEvent: ev,
-                    clickOutsideToClose:true,
+                    clickOutsideToClose: true,
                     locals: {
                         attribute: attribute,
                         parentScope: $scope
                     }
-                }).then(function(answer) {
+                }).then(function (answer) {
                     $scope.status = 'You said the information was "' + answer + '".';
-                }, function() {
+                }, function () {
                     $scope.status = 'You cancelled the dialog.';
                 });
 
