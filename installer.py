@@ -1,7 +1,7 @@
 __author__ = 'kamal'
 
 info = {
-    "title": "Collector",
+    "title": "XY Edit",
     "description": "Allow portal users to collect data for any point layer in the portal. Only point (xy) data is supported. use this app to engage citizens to report incidents or collect data about your assets.",
     "author": 'Cartologic',
     "home_page": 'http://cartologic.com/cartoview/apps/collector',
