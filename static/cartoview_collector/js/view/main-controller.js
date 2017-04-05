@@ -9,22 +9,38 @@ angular.module('cartoview.collectorApp').controller('cartoview.collectorApp.Main
         $scope.toggleSidenav = function () {
             return $mdSidenav('left').toggle();
         };
+        var basicStyle = {position: 'absolute', left: 'auto', right: '300px'};
+        var movableStyle = {position: 'absolute', left: 'auto', right: '610px'};
+        $scope.addLocationStyle = basicStyle;
         $scope.map = mapService.map;
         $scope.sideRight = true;
         $scope.collectorService = collectorService;
-        $scope.isOpenRight = function () {
-            // return $mdSidenav('right').toggle();
-            $mdSidenav('left').close().then(function () {
-                $scope.sideRight = true;
-            });
-
-        };
         $scope.closeCommentNav = function () {
             $mdSidenav('comment').close();
         };
         $scope.closeImageNav = function () {
             $mdSidenav('image').close();
-        }
+        };
+        $scope.commentNav = function () {
+            if ($mdSidenav('image').isOpen()) {
+                $mdSidenav('image').close();
+                $mdSidenav('comment').toggle();
+
+
+            } else {
+                $mdSidenav('comment').toggle();
+
+            }
+        };
+        $scope.imageNav = function () {
+            if ($mdSidenav('comment').isOpen()) {
+                $mdSidenav('comment').close();
+                $mdSidenav('image').toggle();
+
+            } else {
+                $mdSidenav('image').toggle();
+            }
+        };
 
 
     });

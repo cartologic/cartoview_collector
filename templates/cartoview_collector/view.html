@@ -1,5 +1,5 @@
 {% extends "cartoview/base.html" %}
-
+{% load static %}
 {% block title %} {{ SITE_NAME }} - {{ instance.title }} {% endblock %}
 {% block styles %}
     <link rel="stylesheet" href="{{ STATIC_URL }}vendor/ol3/ol.css">
@@ -23,14 +23,21 @@
             border-bottom: 1px solid #ddd;
         }
 
-        {#        .map-results table,th,td{#}
-        {#            border: 1px solid black;#}
-        {#        }#}
         .map-results th, td {
             border-bottom: 1px solid #ddd;
             text-align: center;
         }
+
+        .md-sidenav {
+            min-width: 40%;
+        }
+
+        #location {
+            left: auto;
+            right: 41%
+        }
     </style>
+    <link rel="stylesheet" href="{% static 'cartoview_collector/css/responsive.css' %}">
 {% endblock %}
 
 {% block scripts %}
@@ -133,15 +140,17 @@
          </div>-->
 
         <div flex cartoview-map>
-            <zoom-bar style="position: absolute;right: auto;left: 10px;bottom: 10px;top: auto;" ng-if="config.showZoombar"></zoom-bar>
-            <md-button style="position: absolute;right: auto;top: 60px;" ng-click="collectorService.newItem()" class="md-primary md-fab cs-add-item-btn">
+            <zoom-bar style="position: absolute;right: auto;left: 10px;bottom: 10px;top: auto;"
+                      ng-if="config.showZoombar"></zoom-bar>
+            <md-button id="location" ng-click="collectorService.newItem()"
+                       class="md-primary md-fab cs-add-item-btn">
                 <md-icon aria-label="Menu" class="material-icons">add_location</md-icon>
             </md-button>
 
         </div>
     </div>
     {% verbatim %}
-    <md-sidenav class="md-sidenav-right md-whiteframe-4dp" style="width: 18em;" md-is-open="sideRight"
+    <md-sidenav class="md-sidenav md-sidenav-right md-whiteframe-4dp" md-is-open="sideRight"
                 md-disable-backdrop="true" md-component-id="right">
         <md-content flex class="content">
             <feature-list ng-show="!identify.hasContent && !collectorService.form.visible"></feature-list>
@@ -150,7 +159,7 @@
         </md-content>
 
     </md-sidenav>
-    <md-sidenav class="md-sidenav-right md-whiteframe-2dp" style="left: 79%;width: 20em;" md-disable-backdrop="true"
+    <md-sidenav class="md-sidenav md-sidenav-right md-whiteframe-2dp" md-disable-backdrop="true"
                 md-component-id="comment">
         <md-button ng-click="closeCommentNav()" aria-label>
             <md-icon class="material-icons">close</md-icon>
@@ -161,7 +170,7 @@
         </md-content>
 
     </md-sidenav>
-    <md-sidenav class="md-sidenav-right md-whiteframe-2dp" style="left: 79%;width: 20em;" md-disable-backdrop="true"
+    <md-sidenav class="md-sidenav md-sidenav-right md-whiteframe-2dp" md-disable-backdrop="true"
                 md-component-id="image">
         <md-button ng-click="closeImageNav()" aria-label>
             <md-icon class="material-icons">close</md-icon>
