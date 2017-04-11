@@ -1,11 +1,6 @@
 @media only screen and (max-width: 480px) {
-    .md-sidenav {
-        max-width: 20%;
-        overflow-y: scroll;
-    }
-
     #location {
-        top: 70px;
+        top: 0px;
         right: auto;
     }
 }
@@ -15,11 +10,6 @@
     #location {
         top: 70px;
         right: auto;
-    }
-
-    md-sidenav {
-        max-width: 30%;
-        overflow-y: scroll;
     }
 }
 

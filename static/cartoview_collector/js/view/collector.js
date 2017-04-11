@@ -12,7 +12,7 @@ angular.module('cartoview.collectorApp').directive('collectorAddItemForm', funct
     }
 });
 angular.module('cartoview.collectorApp').service('collectorService',
-    function (urlsHelper, mapService, appConfig, featureListService, $rootScope, $http) {
+    function (urlsHelper, mapService, appConfig, featureListService, $rootScope, $http, $mdSidenav) {
 
         var service = this;
         this.busy = false;
@@ -107,6 +107,7 @@ angular.module('cartoview.collectorApp').service('collectorService',
             visible: false
         };
         this.newItem = function () {
+            $mdSidenav('new').toggle();
             var view = mapService.map.olMap.getView();
             service.feature.setGeometry(new ol.geom.Point(view.getCenter()));
             service.vectorLayer.setVisible(true);
