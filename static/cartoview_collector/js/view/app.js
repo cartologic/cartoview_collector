@@ -1,1 +1,1 @@
-var collectorApp = angular.module('cartoview.collectorApp', ['cartoview.featureListApp']);
+var collectorApp = angular.module('cartoview.collectorApp', ['cartoview.featureListApp','cartoview.userInfo']);

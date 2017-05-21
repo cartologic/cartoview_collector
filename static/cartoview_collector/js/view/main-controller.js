@@ -3,9 +3,9 @@
  */
 
 angular.module('cartoview.collectorApp').controller('cartoview.collectorApp.MainController',
-    function ($scope, mapService, $mdSidenav, $mdMedia, $mdDialog, appConfig, collectorService) {
+    function ($scope, mapService, $mdSidenav, $mdMedia, $mdDialog, appConfig, collectorService,cartoviewUser) {
         $scope.config = appConfig;
-
+        $scope.authenticated = cartoviewUser.isAuthenticated;
         $scope.toggleSidenav = function () {
             return $mdSidenav('left').toggle();
         };

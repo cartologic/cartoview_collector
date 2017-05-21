@@ -33,7 +33,7 @@
         }
 
         #location {
-            left: auto;
+            left: 10px;
         }
 
         .img-bar {
@@ -65,6 +65,42 @@
             bottom: 100px
         }
 
+        .no-js #loader {
+            display: none;
+        }
+
+        .js #loader {
+            display: block;
+            position: absolute;
+            left: 100px;
+            top: 0;
+        }
+
+        .se-pre-con {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url({% static 'cartoview_feature_list/loading.gif' %}) center no-repeat #fff;
+        }
+
+        #zoom {
+            position: fixed;
+            right: 10px;
+            left: auto;
+            bottom: 10px;
+            top: auto;
+        }
+
+        .sample-show-hide {
+            transition: all linear 0.5s;
+        }
+
+        .sample-show-hide.ng-hide {
+            opacity: 0;
+        }
 
     </style>
     <link rel="stylesheet" href="{% static 'cartoview_collector/css/responsive.css' %}">
@@ -98,6 +134,7 @@
 {% block body_directives %}ng-app="cartoview.collectorApp"
     ng-controller="cartoview.collectorApp.MainController"{% endblock %}
 {% block body %}
+    <div ng-if="featureList.loading" class="se-pre-con"></div>
     {% verbatim %}
     <md-toolbar ng-if="mobile" class="md-hue-2">
         <div class="md-toolbar-tools">
@@ -109,55 +146,7 @@
         </div>
     </md-toolbar>
     {% endverbatim %}
-
-    {% comment %}        <div class="full-height" layout-align="space-around stretch" layout="row" layout-sm="column" layout-xs="column">
-            <!-- <div flex-gt-sm="30" class="md-whiteframe-1dp feature-list-ct" layout="column" >
-                 <md-content class="header" layout="row">
-                     <md-button ng-click="toggleSidenav()" class="md-primary" >
-                         <md-icon aria-label="Menu" class="material-icons">menu</md-icon>
-                     </md-button>
-                     <span flex></span>
-                     <md-button ng-click="identify.clearContent()" class="md-primary" ng-show="identify.hasContent">
-                         <md-icon aria-label="Menu" class="material-icons">close</md-icon>
-                     </md-button>
-                     <md-progress-circular ng-show="collectorService.busy"
-                                           ng-disabled="!collectorService.busy"
-                                           class="md-primary md-hue-1"
-                                           md-diameter="60">
-                     </md-progress-circular>
-                     <md-button ng-click="collectorService.saveNewItem()" class="md-primary" ng-show="collectorService.form.visible">
-                         <md-icon aria-label="Menu" class="material-icons">save</md-icon>
-                     </md-button>
-                     <md-button ng-click="collectorService.cancelNewItem()" class="md-primary" ng-show="collectorService.form.visible">
-                         <md-icon aria-label="Menu" class="material-icons">close</md-icon>
-                     </md-button>
-                 </md-content>
-                 <md-content flex class="content">
-                     <feature-list ng-show="!identify.hasContent && !collectorService.form.visible"></feature-list>
-                     <identify-results ng-show="identify.hasContent && !collectorService.form.visible"></identify-results>
-                     <collector-add-item-form ng-show="collectorService.form.visible"></collector-add-item-form>
-                 </md-content>
-             </div>-->
-
-            <div flex cartoview-map>
-                <zoom-bar style="position: absolute;right: auto;left: 10px;bottom: 10px;top: auto;"
-                          ng-if="config.showZoombar"></zoom-bar>
-                <md-button id="location" ng-click="collectorService.newItem()"
-                           class="md-primary md-fab cs-add-item-btn">
-                    <md-icon aria-label="Menu" class="material-icons">add_location</md-icon>
-                </md-button>
-
-            </div>
-        </div>{% endcomment %}
     <div layout-align="space-around stretch" layout="row" style="height: 100%">
-        <div ng-if="mapShow" flex cartoview-map style="position: relative;">
-            <zoom-bar style="position: fixed;right: auto;left: 10px;bottom: 10px;top: auto;"
-                      ng-if="config.showZoombar"></zoom-bar>
-            <md-button id="location" ng-click="collectorService.newItem()"
-                       class="md-primary md-fab cs-add-item-btn">
-                <md-icon aria-label="Menu" class="material-icons">add_location</md-icon>
-            </md-button>
-        </div>
         <div ng-if="!mobile" flex="40" style="overflow: auto">
             <div layout="row">
                 <md-button ng-click="toggleSidenav()" class="md-primary">
@@ -175,8 +164,17 @@
             <feature-list></feature-list>
             {% comment %}<collector-add-item-form ng-show="collectorService.form.visible"></collector-add-item-form>{% endcomment %}
         </div>
+        <div ng-if="mapShow" flex cartoview-map style="position: relative;">
+            <zoom-bar id="zoom"
+                      ng-if="config.showZoombar"></zoom-bar>
+            <md-button id="location" ng-if="authenticated" ng-click="collectorService.newItem()"
+                       class="md-primary md-fab cs-add-item-btn">
+                <md-icon aria-label="Menu" class="material-icons">add_location</md-icon>
+            </md-button>
+        </div>
+
     </div>
-    <md-sidenav md-component-id="new" class=" md-sidenav md-sidenav-right md-whiteframe-z2 floating-menu">
+    <md-sidenav md-component-id="new" class=" md-sidenav md-sidenav-left md-whiteframe-z2 floating-menu">
         {% verbatim %}
         <md-toolbar class="md-hue-2">
             <div class="md-toolbar-tools">
@@ -191,7 +189,7 @@
 
         {% endverbatim %}
     </md-sidenav>
-    <md-sidenav md-component-id="left" class=" md-sidenav md-sidenav-right md-whiteframe-z2 floating-menu">
+    <md-sidenav md-component-id="left" class=" md-sidenav md-sidenav-left md-whiteframe-z2 floating-menu">
         {% verbatim %}
         <md-toolbar class="md-hue-2">
             <div class="md-toolbar-tools">
